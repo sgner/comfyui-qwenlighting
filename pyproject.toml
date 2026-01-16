@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=70.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "comfyqwenlighting"
+version = "0.0.1"
+description = "允许你在 ComfyUI 中通过一个 3D 球体可视化界面来调整光源位置（方位角/俯仰角）、亮度和颜色，并自动生成对应的自然语言提示词（Prompt）"
+authors = [
+  {name = "sgner", email = "2531585164@qq.com"}
+]
+readme = "README.md"
+license = {text = "MIT license"}
+requires-python = ">=3.10"
+classifiers = []
+dependencies = [
+
+]
+
+
+
+[project.optional-dependencies]
+dev = [
+    "bump-my-version",
+    "coverage",  # testing
+    "mypy",  # linting
+    "pre-commit", # runs linting on commit
+    "pytest",  # testing
+    "ruff",  # linting
+]
+
+[project.urls]
+Repository = "https://github.com/sgner/comfyqwenlighting"
+BugTracker = "https://github.com/sgner/comfyqwenlighting/issues"
+Documentation = "https://github.com/sgner/comfyqwenlighting/wiki"
+
+
+[tool.comfy]
+PublisherId = "sgner"
+DisplayName = "ComfyQwenLighting"
+Icon = ""
+Tags = []
+Repository = "https://github.com/sgner/comfyqwenlighting"
+
+includes = []
+
+[tool.setuptools.package-data]
+"*" = ["*.*"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = [
+    "tests",
+]
+
+[tool.mypy]
+files = "."
+
+# Use strict defaults
+strict = true
+warn_unreachable = true
+warn_no_return = true
+
+[[tool.mypy.overrides]]
+# Don't require test functions to include types
+module = "tests.*"
+allow_untyped_defs = true
+disable_error_code = "attr-defined"
+
+[tool.ruff]
+# extend-exclude = ["static", "ci/templates"]
+line-length = 140
+src = ["src", "tests"]
+target-version = "py39"
+
+# Add rules to ban exec/eval
+[tool.ruff.lint]
+select = [
+    "S102",  # exec-builtin
+    "S307",  # eval-used
+    "W293",
+    "F",  # The "F" series in Ruff stands for "Pyflakes" rules, which catch various Python syntax errors and undefined names.
+    # See all rules here: https://docs.astral.sh/ruff/rules/#pyflakes-f
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
